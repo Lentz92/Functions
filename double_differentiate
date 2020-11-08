@@ -1,0 +1,20 @@
+def double_differentiate(data, fs):
+    '''
+    Function to double-differentiate positional data, to get acceleration data
+    And then plot the data.
+    
+    Keyword arguments:
+    data = vector of float values for x axis
+    fs = sampling frequency
+    '''
+
+    acc = []
+    index = 1 #works as a counter for the index value and to let while loop count upwards to the end.
+    end = len(data)-2 #defining the end of the while loop
+    while index <= end:
+        diff_acc = (data[index+1] - (2*data[index]) + data[index-1]) / ((1/fs)**2)
+        acc.append(diff_acc)   
+        index += 1
+    acc = np.array(acc)
+    
+    return acc
