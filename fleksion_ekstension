@@ -1,0 +1,19 @@
+def fleksion_ekstension(y):
+    ekstension_value = []
+    ekstension_idx = []
+    fleksion_value = []
+    fleksion_idx = []
+    for idx, value in enumerate(y):
+        if value > 0:
+            ekstension_value.append(value)
+            ekstension_idx.append(idx+749)  #the 749 is added since it is the real start of the index, after rolling mean
+        else:
+            fleksion_value.append(value)
+            fleksion_idx.append(idx+749)
+
+    eks = np.array([ekstension_idx, ekstension_value])
+    ekstension = pd.DataFrame(eks).T
+    ekstension.columns = ['idx', 'speed']
+    flex = np.array([fleksion_idx, fleksion_value])
+    fleksion = pd.DataFrame(flex).T
+    fleksion.columns = ['idx', 'speed']
