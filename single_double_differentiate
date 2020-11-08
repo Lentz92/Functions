@@ -1,32 +1,14 @@
-def velocity(x, y):
-    '''Derivative of positional data to velocity.
-    index number is required to start at 0.
+def derivative(x, y):
+    '''Derivative of data
 
     Keyword arguments:
     x -- time vector
     y -- positional data
     '''
-    velocity = []
+    derivative = []
     for i in range(len(x)-1):
-        vel = (y[1+i] - y[0+i]) / (x[1+i] - x[0+i])
-        velocity.append(vel)
-    velocity.append(0)
+        vel = (y.iloc[1+i] - y.iloc[0+i]) / (x.iloc[1+i] - x.iloc[0+i])
+        derivative.append(vel)
+    derivative.append(0)
 
-    return velocity
-    
-    
-    def acceleration(x,y):
-    '''Double Derivative of positive data to acceleration.
-    index number is required to start at 0.
-
-    Keyword arguments:
-    x -- time vector
-    y -- positional data
-    '''
-    vel = velocity(x,y)
-    acceleration = []
-    for i in range(len(x)-2):
-        acc = (vel[1+i] - vel[0+i]) / (x[1+i] - x[0+i])
-        acceleration.append(acc)
-
-    return acceleration
+    return derivative
