@@ -1,4 +1,10 @@
 def fleksion_ekstension(y):
+    '''finding positive and negative speed values,
+       to define fleksion and ekstension in a movement, and their index numbers.
+
+       Keyword Arguments:
+       y -- Array of float data
+    '''
     ekstension_value = []
     ekstension_idx = []
     fleksion_value = []
@@ -17,3 +23,5 @@ def fleksion_ekstension(y):
     flex = np.array([fleksion_idx, fleksion_value])
     fleksion = pd.DataFrame(flex).T
     fleksion.columns = ['idx', 'speed']
+
+    return [ekstension, fleksion]
