@@ -1,0 +1,98 @@
+ef thermal_value(RER):
+    '''Depending on RER value, finding the thermal value of
+    oxygen.
+    Values are based on table form McArdle, Katch & Katch, 8th Edition
+
+    Keyword Arguments:
+    RER -- Respitory exchange rate, an array with values between 0.707 to 1
+    '''
+
+    thermal = []
+
+    for i in RER:
+        assert i > 0.707, "Input variable is out of bounds"
+
+        if (i >= 0.707) & (i <=0.709):
+            kcal = 4.686
+        elif i == 0.71:
+            kcal = 4.690
+        elif i == 0.72:
+            kcal = 4.702
+        elif i == 0.73:
+            kcal = 4.714
+        elif i == 0.74:
+            kcal = 4.727
+        elif i == 0.75:
+            kcal = 4.739
+        elif i == 0.76:
+            kcal = 4.750
+        elif i == 0.77:
+            kcal = 4.764
+        elif i == 0.78:
+            kcal = 4.776
+        elif i == 0.79:
+            kcal = 4.788
+        elif i == 0.80:
+            kcal = 4.801
+        elif i == 0.81:
+            kcal = 4.813
+        elif i == 0.82:
+            kcal = 4.825
+        elif i == 0.83:
+            kcal = 4.838
+        elif i == 0.84:
+            kcal = 4.850
+        elif i == 0.85:
+            kcal = 4.862
+        elif i == 0.86:
+            kcal = 4.875
+        elif i == 0.87:
+            kcal = 4.887
+        elif i == 0.88:
+            kcal = 4.899
+        elif i == 0.89:
+            kcal = 4.911
+        elif i == 0.90:
+            kcal = 4.924
+        elif i == 0.91:
+            kcal = 4.936
+        elif i == 0.92:
+            kcal = 4.948
+        elif i == 0.93:
+            kcal = 4.961
+        elif i == 0.94:
+            kcal = 4.973
+        elif i == 0.95:
+            kcal = 4.985
+        elif i == 0.96:
+            kcal = 4.998
+        elif i == 0.97:
+            kcal = 4.5010
+        elif i == 0.98:
+            kcal = 4.5022
+        elif i == 0.99:
+            kcal = 4.5035
+        elif i >= 1:
+            kcal = 5.047
+        
+        thermal.append(kcal)
+    thermal_np = np.array(thermal)
+    thermal_kj = thermal_np * 4.184 #converting kcal to kj
+
+    return thermal_kj
+
+def oxygen_to_energy(VO2, RER):
+    '''based on volume O2 and volume CO2
+    calculating energy consumption
+    '''
+
+    thermalvalue = thermal_value(RER)
+
+    LVO2 = np.array(VO2) / 1000
+
+    energy = []
+    for oxygen, thermal in zip(LVO2, thermalvalue):
+        e = oxygen*thermal
+        energy.append(e)
+
+    return energy
