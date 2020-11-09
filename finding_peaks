@@ -1,0 +1,21 @@
+def finding_peaks(df, less_or_greater, order, drop_value):
+    '''Finding local peaks and its index number from a vector
+    
+    Keyword Arguments:
+    df -- DataFrame.
+    less_or_greater -- use either np.less_equal or np.greater_equal.
+        np.less_equal -- Return the truth value of (x1 =< x2) element wise.
+        np.greater_equal -- Return the truth value of (x1 >= x2) element-wise.
+    order -- How many points on each side to use for the comparison to consider comparator(n, n+x) to be true.
+    drop_value -- dropping values between two values, insert as a 2 element list.
+    
+    '''
+    data = []
+    number_of_rows = len(df.iloc[0,:])
+    for i in range(number_of_rows):
+        row = df.iloc[:,i]
+        x_local = row.iloc[sig.argrelextrema(df.iloc[:,i].values, less_or_greater, order=order)]
+        x_local_drop = x_local[(x_local.values > drop_value[0]) & (x_local.values <= drop_value[1])].index
+        x = x_local.drop(x_local_drop)
+        data.append(x)
+    return data
