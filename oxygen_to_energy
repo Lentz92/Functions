@@ -1,7 +1,7 @@
-ef thermal_value(RER):
+def thermal_value(RER):
     '''Depending on RER value, finding the thermal value of
-    oxygen.
-    Values are based on table form McArdle, Katch & Katch, 8th Edition
+    oxygen. Returned as kcal / liter O2 / min 
+    Values are based on table form McArdle, Katch & Katch, 8th Edition p.188
 
     Keyword Arguments:
     RER -- Respitory exchange rate, an array with values between 0.707 to 1
@@ -10,9 +10,9 @@ ef thermal_value(RER):
     thermal = []
 
     for i in RER:
-        assert i > 0.707, "Input variable is out of bounds"
+        #assert i > 0.707, "Input variable is out of bounds"
 
-        if (i >= 0.707) & (i <=0.709):
+        if i <= 0.709:
             kcal = 4.686
         elif i == 0.71:
             kcal = 4.690
@@ -81,7 +81,7 @@ ef thermal_value(RER):
 
     return thermal_kj
 
-def oxygen_to_energy(VO2, RER):
+def oxygen_to_energy(VO2, RER, diff_time):
     '''based on volume O2 and volume CO2
     calculating energy consumption
     '''
@@ -89,10 +89,11 @@ def oxygen_to_energy(VO2, RER):
     thermalvalue = thermal_value(RER)
 
     LVO2 = np.array(VO2) / 1000
-
+    idx = 0
     energy = []
     for oxygen, thermal in zip(LVO2, thermalvalue):
-        e = oxygen*thermal
+        e = (oxygen*thermal) * (diff_time.iloc[idx]/60)
         energy.append(e)
+        idx += 1
 
     return energy
